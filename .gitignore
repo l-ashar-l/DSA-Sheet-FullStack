@@ -1,28 +1,20 @@
-./backend_dsa_sheet/node_modules/
-./backend_dsa_sheet/.env
-./backend_dsa_sheet/.env.local
-./backend_dsa_sheet/.DS_Store
+# Backend
+backend_dsa_sheet/node_modules/
+backend_dsa_sheet/.env
+backend_dsa_sheet/.env.local
+backend_dsa_sheet/.DS_Store
 
-# Logs
-./frontend_dsa_sheet/logs
-./frontend_dsa_sheet/*.log
-./frontend_dsa_sheet/npm-debug.log*
-./frontend_dsa_sheet/yarn-debug.log*
-./frontend_dsa_sheet/yarn-error.log*
-./frontend_dsa_sheet/pnpm-debug.log*
-./frontend_dsa_sheet/lerna-debug.log*
-./frontend_dsa_sheet/node_modules
-./frontend_dsa_sheet/dist
-./frontend_dsa_sheet/dist-ssr
-./frontend_dsa_sheet/*.local
+# Frontend logs
+frontend_dsa_sheet/logs/
+frontend_dsa_sheet/*.log
+frontend_dsa_sheet/npm-debug.log*
+frontend_dsa_sheet/yarn-debug.log*
+frontend_dsa_sheet/yarn-error.log*
+frontend_dsa_sheet/pnpm-debug.log*
+frontend_dsa_sheet/lerna-debug.log*
 
-# Editor directories and files
-./frontend_dsa_sheet/.vscode/*
-./frontend_dsa_sheet/!.vscode/extensions.json
-./frontend_dsa_sheet/.idea
-./frontend_dsa_sheet/.DS_Store
-./frontend_dsa_sheet/*.suo
-./frontend_dsa_sheet/*.ntvs*
-./frontend_dsa_sheet/*.njsproj
-./frontend_dsa_sheet/*.sln
-./frontend_dsa_sheet/*.sw?
+# Frontend dependencies/build
+frontend_dsa_sheet/node_modules/
+frontend_dsa_sheet/dist/
+frontend_dsa_sheet/dist-ssr/
+frontend_dsa_sheet/*.local
