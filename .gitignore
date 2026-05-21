@@ -15,6 +15,7 @@ frontend_dsa_sheet/lerna-debug.log*
 
 # Frontend dependencies/build
 frontend_dsa_sheet/node_modules/
+frontend_dsa_sheet/.env
 frontend_dsa_sheet/dist/
 frontend_dsa_sheet/dist-ssr/
 frontend_dsa_sheet/*.local
