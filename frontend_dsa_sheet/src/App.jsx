@@ -7,6 +7,7 @@ import RegisterPage from "./pages/RegisterPage";
 import TopicPage from "./pages/TopicPage";
 import ProgressPage from "./pages/ProgressPage";
 import ProfilePage from "./pages/ProfilePage";
+import AdminPage from "./pages/AdminPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import "./App.css";
 
@@ -53,6 +54,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminPage />
               </ProtectedRoute>
             }
           />

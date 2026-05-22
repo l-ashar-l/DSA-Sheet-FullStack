@@ -32,10 +32,6 @@ const router = express.Router();
  *               description:
  *                 type: string
  *                 example: "Graph traversal, shortest paths, and advanced graph algorithms."
- *               difficulty:
- *                 type: string
- *                 enum: [Easy, Medium, Hard]
- *                 example: "Hard"
  *               resources:
  *                 type: object
  *                 properties:
@@ -66,7 +62,7 @@ const router = express.Router();
  *         description: Topic slug already exists
  */
 router.post("/topics", protect, admin, async (req, res) => {
-  const { title, slug, description, difficulty, resources, order } = req.body;
+  const { title, slug, description, resources, order } = req.body;
 
   if (!title || !slug) {
     return res.status(400).json({ message: "Title and slug are required" });
@@ -77,11 +73,19 @@ router.post("/topics", protect, admin, async (req, res) => {
     return res.status(409).json({ message: "Topic slug already exists" });
   }
 
+  // Prevent duplicate topic titles (case-insensitive)
+  const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
+  const existingTitle = await Topic.findOne({
+    title: { $regex: `^${escapeRegex(title)}$`, $options: "i" },
+  });
+  if (existingTitle) {
+    return res.status(409).json({ message: "Topic title already exists" });
+  }
+
   const topic = await Topic.create({
     title,
     slug,
     description,
-    difficulty,
     resources,
     order,
   });

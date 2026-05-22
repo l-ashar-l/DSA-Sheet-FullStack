@@ -1,18 +1,8 @@
-const dotenv = require("dotenv");
-const connectDB = require("./config/db");
-const bcrypt = require("bcryptjs");
-const User = require("./models/User");
-const Topic = require("./models/Topic");
-const Problem = require("./models/Problem");
-
-dotenv.config();
-
 const topics = [
   {
     title: "Arrays",
     slug: "arrays",
     description: "Array fundamentals, sliding window, two pointers and common array patterns.",
-    difficulty: "Easy",
     resources: {
       youtube: "https://www.youtube.com/watch?v=9shpYd5xusQ",
       article: "https://www.geeksforgeeks.org/array-data-structure/",
@@ -24,7 +14,6 @@ const topics = [
     title: "Linked Lists",
     slug: "linked-lists",
     description: "Singly and doubly linked lists, reversal, cycle detection, and merge operations.",
-    difficulty: "Medium",
     resources: {
       youtube: "https://www.youtube.com/watch?v=njTh_OwMljA",
       article: "https://www.geeksforgeeks.org/data-structures/linked-list/",
@@ -33,16 +22,26 @@ const topics = [
     order: 2,
   },
   {
+    title: "Trees",
+    slug: "trees",
+    description: "Binary trees, binary search trees, and tree traversal algorithms.",
+    resources: {
+      youtube: "https://www.youtube.com/watch?v=njTh_OwMljA",
+      article: "https://www.geeksforgeeks.org/data-structures/trees/",
+      practice: "https://leetcode.com/tag/tree/",
+    },
+    order: 3,
+  },
+  {
     title: "Graphs",
     slug: "graphs",
     description: "Graph traversal, shortest paths, and advanced graph algorithms for networks.",
-    difficulty: "Hard",
     resources: {
-      youtube: "https://www.youtube.com/watch?v=09_LlHjoEiY",
+      youtube: "https://www.youtube.com/watch?v=3jMYSKal6ts",
       article: "https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/",
       practice: "https://leetcode.com/tag/graph/",
     },
-    order: 3,
+    order: 4,
   },
 ];
 
@@ -92,6 +91,17 @@ const problems = [
     order: 2,
   },
   {
+    title: "Binary tree inorder traversal",
+    description: "Traverse the binary tree inorder format",
+    difficulty: "Easy",
+    resources: {
+      youtube: "https://www.youtube.com/watch?v=b_NjndniOqY",
+      article: "https://www.geeksforgeeks.org/dsa/inorder-traversal-of-binary-tree/",
+      practice: "https://leetcode.com/problems/binary-tree-inorder-traversal?envType=problem-list-v2&envId=binary-tree",
+    },
+    order: 1,
+  },
+  {
     title: "Word Ladder II",
     description: "Find all shortest transformation sequences from start to end word using BFS and backtracking.",
     difficulty: "Hard",
@@ -115,16 +125,19 @@ const problems = [
   },
 ];
 
-const seed = async () => {
-  try {
-    await connectDB();
+const bcrypt = require("bcryptjs");
+const User = require("../models/User");
+const Topic = require("../models/Topic");
+const Problem = require("../models/Problem");
 
+const seedDatabase = async () => {
+  try {
     await User.deleteMany();
     await Topic.deleteMany();
     await Problem.deleteMany();
 
     const passwordHash = await bcrypt.hash("Password123", 10);
-    const user = await User.create({
+    await User.create({
       name: "Student User",
       email: "student@example.com",
       password: passwordHash,
@@ -143,6 +156,7 @@ const seed = async () => {
     const topicMap = {
       arrays: createdTopics.find((topic) => topic.slug === "arrays")._id,
       "linked-lists": createdTopics.find((topic) => topic.slug === "linked-lists")._id,
+      trees: createdTopics.find((topic) => topic.slug === "trees")._id,
       graphs: createdTopics.find((topic) => topic.slug === "graphs")._id,
     };
 
@@ -151,17 +165,16 @@ const seed = async () => {
       { ...problems[1], topic: topicMap.arrays },
       { ...problems[2], topic: topicMap["linked-lists"] },
       { ...problems[3], topic: topicMap["linked-lists"] },
-      { ...problems[4], topic: topicMap.graphs },
+      { ...problems[4], topic: topicMap.trees },
       { ...problems[5], topic: topicMap.graphs },
+      { ...problems[6], topic: topicMap.graphs },
     ]);
 
     console.log("Database seeded successfully.");
-    console.log("Default user: student@example.com / Password123");
-    process.exit(0);
   } catch (error) {
     console.error("Seed error:", error);
-    process.exit(1);
+    throw error;
   }
 };
 
-seed();
+module.exports = { seedDatabase };

@@ -35,7 +35,7 @@ const ProgressPage = () => {
       <section className="page-heading">
         <div>
           <p className="eyebrow">Progress tracker</p>
-          <h1>Your solved problems</h1>
+          <h1>Your attempted questions</h1>
           <p className="subtext">
             Review the problems you've marked and switch completion status instantly.
           </p>
@@ -52,18 +52,22 @@ const ProgressPage = () => {
             progress.map((item) => (
               <article key={item._id} className="topic-card">
                 <div className="topic-header">
-                  <div>
-                    <h2>{item.problem.title}</h2>
-                    <span className={`topic-badge difficulty-${String(item.problem.difficulty || "").toLowerCase()}`}>
-                      {item.problem.difficulty}
-                    </span>
-                  </div>
+                  <h2>{item.problem.title}</h2>
                   <span className={item.completed ? "pill pill-success" : "pill"}>
                     {item.completed ? "Solved" : "Pending"}
                   </span>
                 </div>
-                <p>Topic: {item.problem.topic}</p>
-                <button type="button" className="primary-button" onClick={() => handleToggle(item)}>
+                <div className="topic-subheader">
+                  <p className="topic-line"><b>Topic: {item.problem.topic?.title || item.problem.topic}</b></p>
+                  <span className={`topic-badge difficulty-${String(item.problem.difficulty || "").toLowerCase()}`}>
+                    {item.problem.difficulty}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  className={item.completed ? "primary-button danger-button" : "primary-button"}
+                  onClick={() => handleToggle(item)}
+                >
                   {item.completed ? "Mark pending" : "Mark solved"}
                 </button>
               </article>

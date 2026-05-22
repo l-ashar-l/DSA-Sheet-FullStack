@@ -2,12 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./swagger");
+const swaggerSpec = require("./config/swagger");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const topicRoutes = require("./routes/topicRoutes");
 const progressRoutes = require("./routes/progressRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const { seedDatabase } = require("./config/seed");
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
 
 dotenv.config();
@@ -16,7 +17,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-connectDB();
+const start = async () => {
+  await connectDB();
+
+  try {
+    const Topic = require("./models/Topic");
+    const User = require("./models/User");
+    const topicCount = await Topic.countDocuments();
+    const userCount = await User.countDocuments();
+    if (topicCount === 0 && userCount === 0) {
+      console.log("Empty DB detected — running initial seed...");
+      await seedDatabase();
+    }
+  } catch (err) {
+    console.error("Seeding check failed:", err.message);
+  }
+};
+
+start();
 
 app.get("/", (req, res) => {
   res.json({ message: "DSA Sheet API is running" });

@@ -40,7 +40,14 @@ const router = express.Router();
  */
 router.get("/", protect, async (req, res) => {
   const progress = await UserProgress.find({ user: req.user._id })
-    .populate("problem", "title difficulty resources topic")
+    .populate({
+      path: "problem",
+      select: "title difficulty resources topic",
+      populate: {
+        path: "topic",
+        select: "title",
+      },
+    })
     .lean();
 
   res.json(progress);
@@ -109,7 +116,14 @@ router.post("/toggle", protect, async (req, res) => {
     { user: req.user._id, problem: problemId },
     { completed },
     { new: true, upsert: true, setDefaultsOnInsert: true }
-  ).populate("problem", "title difficulty resources topic");
+  ).populate({
+    path: "problem",
+    select: "title difficulty resources topic",
+    populate: {
+      path: "topic",
+      select: "title",
+    },
+  });
 
   res.json(progress);
 });

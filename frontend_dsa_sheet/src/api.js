@@ -41,6 +41,16 @@ export const getTopicById = async (id) => {
   return response.data;
 };
 
+export const createTopic = async (topicData) => {
+  const response = await client.post("/api/admin/topics", topicData);
+  return response.data;
+};
+
+export const createProblem = async (problemData) => {
+  const response = await client.post("/api/admin/problems", problemData);
+  return response.data;
+};
+
 export const getProgress = async () => {
   const response = await client.get("/api/progress");
   return response.data;

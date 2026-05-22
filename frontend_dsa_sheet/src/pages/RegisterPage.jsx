@@ -51,8 +51,6 @@ const RegisterPage = () => {
               type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              placeholder="Student User"
-              autoComplete="name"
             />
           </label>
 
@@ -62,8 +60,6 @@ const RegisterPage = () => {
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              placeholder="student@example.com"
-              autoComplete="email"
             />
           </label>
 
@@ -73,8 +69,6 @@ const RegisterPage = () => {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="Password123"
-              autoComplete="new-password"
             />
           </label>
 

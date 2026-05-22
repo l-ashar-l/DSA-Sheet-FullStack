@@ -58,7 +58,6 @@ const TopicPage = () => {
           <p>{topicDetail.topic.description}</p>
         </div>
         <div className="topic-summary">
-          <span>{topicDetail.topic.difficulty}: </span>
           <strong>{topicDetail.problems.length} problems</strong>
         </div>
       </section>

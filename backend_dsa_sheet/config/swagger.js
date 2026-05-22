@@ -30,7 +30,6 @@ const options = {
             title: { type: "string" },
             slug: { type: "string" },
             description: { type: "string" },
-            difficulty: { type: "string", enum: ["Easy", "Medium", "Hard"] },
             resources: {
               type: "object",
               properties: {

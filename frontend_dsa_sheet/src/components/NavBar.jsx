@@ -15,6 +15,7 @@ const NavBar = () => {
             <Link to="/dashboard">Dashboard</Link>
             <Link to="/progress">Progress</Link>
             <Link to="/profile">Profile</Link>
+            {user?.role === "admin" && <Link to="/admin">Admin</Link>}
             <button className="ghost-button" onClick={logout}>
               Sign out
             </button>

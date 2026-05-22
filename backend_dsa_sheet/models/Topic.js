@@ -5,7 +5,6 @@ const TopicSchema = new mongoose.Schema(
     title: { type: String, required: true, trim: true },
     slug: { type: String, required: true, unique: true, trim: true },
     description: { type: String, trim: true },
-    difficulty: { type: String, enum: ["Easy", "Medium", "Hard"], default: "Easy" },
     resources: {
       youtube: { type: String, trim: true },
       article: { type: String, trim: true },

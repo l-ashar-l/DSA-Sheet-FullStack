@@ -28,8 +28,6 @@ const DashboardPage = () => {
     return new Map(progress.map((item) => [item.problem._id, item.completed]));
   }, [progress]);
 
-  const difficultyClass = (value) => `topic-badge difficulty-${String(value || "").toLowerCase()}`;
-
   const updateProblem = async (problem) => {
     try {
       const updated = await toggleProgress(problem._id, !progressMap.get(problem._id));
@@ -57,9 +55,9 @@ const DashboardPage = () => {
           </p>
         </div>
         <div className="summary-card">
-          <p>Topics covered</p>
+          <p>Total Topics</p>
           <strong>{topics.length}</strong>
-          <p>Problems tracked</p>
+          <p>Total Problems</p>
           <strong>{topics.reduce((sum, topic) => sum + topic.problems.length, 0)}</strong>
         </div>
       </section>
@@ -78,7 +76,6 @@ const DashboardPage = () => {
                   <h2>{topic.title}</h2>
                   <p>{topic.description}</p>
                 </div>
-                <span className={difficultyClass(topic.difficulty)}>{topic.difficulty}</span>
               </div>
 
               <div className="topic-meta">
