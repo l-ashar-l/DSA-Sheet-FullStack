@@ -10,6 +10,7 @@ const progressRoutes = require("./routes/progressRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const { seedDatabase } = require("./config/seed");
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
+const mongoose = require("mongoose");
 
 dotenv.config();
 
@@ -46,6 +47,13 @@ app.use("/api/auth", authRoutes);
 app.use("/api/topics", topicRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/admin", adminRoutes);
+
+// Health check endpoint
+app.get("/health", (req, res) => {
+  const state = mongoose.connection.readyState;
+  const dbStatus = state === 1 ? "connected" : state === 2 ? "connecting" : "disconnected";
+  res.json({ status: "ok", uptime: process.uptime(), timestamp: Date.now(), db: dbStatus });
+});
 
 app.use(notFound);
 app.use(errorHandler);
