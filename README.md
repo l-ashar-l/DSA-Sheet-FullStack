@@ -165,6 +165,7 @@ Topics & Problems
 - `GET /topics/:topicId` — topic details and problem summary.
 - `GET /topics/:topicId/problems` — list problems for topic (filters: `difficulty`, `tags`).
 - `GET /problems/:problemId` — problem detail.
+- `POST /topics` (admin) — create topic.
 - `POST /problems` (admin) — create problem.
 
 User Progress
@@ -212,11 +213,4 @@ Notes:
   - Implement MQ + worker for aggregates.
   - Add monitoring and run load tests (k6) to validate capacity.
 
-If you want, I can now:
-- generate Mongoose schemas and index definitions in `backend_dsa_sheet/models`, or
-- produce an OpenAPI spec for the endpoints above, or
-- add a sequence diagram for the progress update flow.
-
 ---
-
-Created by the project design assistant.

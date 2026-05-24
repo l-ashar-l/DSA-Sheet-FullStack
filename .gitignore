@@ -19,3 +19,4 @@ frontend_dsa_sheet/.env
 frontend_dsa_sheet/dist/
 frontend_dsa_sheet/dist-ssr/
 frontend_dsa_sheet/*.local
+frontend_dsa_sheet/build
